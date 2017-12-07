@@ -4,9 +4,15 @@
 #include<string.h>
 #include<errno.h>
 
+	/* This application creates a database which
+	   attempts to replicate an address book
+	*/
+
+//Defining max values for arrays and rows for database
 #define MAX_DATA 512
 #define MAX_ROWS 100
 
+//Creating a struct of an address or data to be saved to database
 struct Address {
 
 	int id;
@@ -17,13 +23,16 @@ struct Address {
 
 };
 
-
+//Creating a struct of a database which takes in an Address with a specific number of rows
 struct Database {
 
 	struct Address rows[MAX_ROWS];
 
 };
 
+/*Creating a struct of a connection to the database which looks 
+for a file and then creates a new database object
+*/
 struct Connection {
 
 	FILE *file;
@@ -31,6 +40,7 @@ struct Connection {
 
 };
 
+//Creates a method which allows for easy error reporting to the console without the use of printf
 void die(const char *message){
 
 	if(errno){
@@ -46,28 +56,35 @@ void die(const char *message){
 	exit(1);
 }
 
+//Creates a method to print out the variables saved in the address for the given row of the database
 void Address_print(struct Address *addr){
 
 	printf("%d %s %s %s\n", addr->id, addr->name, addr->email, addr->phone_number);
 
 }
 
+//Creates a method which loads the database
 void Database_load(struct Connection *conn){
 
+	//Reads the database file
 	int rc = fread(conn->db, sizeof(struct Database), 1, conn->file);
 	
+	//Spits out an error if there is no database file
 	if(rc != 1)
 		die("Failed to load database.");
 
 }
 
+//Creates an actual instance of a database, including opening it and the file associated
 struct Connection *Database_open(const char *filename, char mode){
 
+	//Allocates memory to the database connection
 	struct Connection *conn = malloc(sizeof(struct Connection));
 
 	if(!conn)
 		die("Memmory error");
 
+	//Allocated memory to the database itself
 	conn->db = malloc(sizeof(struct Database));
 
 	if(!conn->db){
@@ -75,12 +92,15 @@ struct Connection *Database_open(const char *filename, char mode){
 
 	}
 
+	//If 'c' is passed, it writes a new file with the given filename variable
 	if(mode == 'c'){
 		conn->file = fopen(filename, "w");
 
+	//Otherwise it just reads the database file itself
 	}else{
 		conn->file = fopen(filename, "r+");
 
+		//Using the load method to load the database
 		if(conn->file){
 			Database_load(conn);
 
@@ -93,6 +113,7 @@ struct Connection *Database_open(const char *filename, char mode){
 	return conn;
 }
 
+//Method to free up allocated space to the database and connection
 void Database_close(struct Connection *conn){
 
 	if(conn){
@@ -104,6 +125,7 @@ void Database_close(struct Connection *conn){
 	}
 }
 
+//Writes new data to the database 
 void Database_write(struct Connection *conn){
 
 	rewind(conn->file);
@@ -118,6 +140,7 @@ void Database_write(struct Connection *conn){
 
 }
 
+//Creates the database
 void Database_create(struct Connection *conn){
 
 	int i = 0;
@@ -132,12 +155,15 @@ void Database_create(struct Connection *conn){
 	}
 }
 
+//Create blueprint for database and what it takes in
 void Database_set(struct Connection *conn, int id, const char *name, const char *email, const char *phone_number){
 
+	//Creates rows for database unless there is already a row with the same id
 	struct Address *addr = &conn->db->rows[id];
 	if(addr->set)
 		die("Already set delete it first");
 
+	//Copies data to the given row id
 	addr->set = 1;
 	//WARNING: bug, read the "How to break it" and fix this
 	char *res = strncpy(addr->name, name, MAX_DATA);
@@ -157,6 +183,7 @@ void Database_set(struct Connection *conn, int id, const char *name, const char 
 
 }
 
+//Get method to retrieve a specific row should you provide its id
 void Database_get(struct Connection *conn, int id){
 
 	struct Address *addr = &conn->db->rows[id];
@@ -168,6 +195,7 @@ void Database_get(struct Connection *conn, int id){
 	}
 }
 
+//Creates method to delete a given row provided the id is given
 void Database_delete(struct Connection *conn, int id){
 
 	struct Address addr = {.id = id,.set = 0 };
@@ -175,6 +203,7 @@ void Database_delete(struct Connection *conn, int id){
 
 }
 
+//Creates method to list out database rows
 void Databse_list(struct Connection *conn){
 
 	int i = 0;
@@ -192,9 +221,11 @@ void Databse_list(struct Connection *conn){
 
 int main(int argc, char *argv[]){
 
+	//Lets user know what parameters to give the command line to create a database entry
 	if(argc < 3)
 		die("USAGE: ex17 <dbfile> <action> [action params]");
 
+	//Sets variables
 	char *filename = argv[1];
 	char action = argv[2][0];
 	struct Connection *conn = Database_open(filename, action);
@@ -203,6 +234,7 @@ int main(int argc, char *argv[]){
 	if(argc > 3) id = atoi(argv[3]);
 	if(id >= MAX_ROWS) die("There's not that many records.");
 
+	//Switch statement to check for what action the user wants to take, then creates that action
 	switch(action){
 		case 'c':
 			Database_create(conn);
@@ -239,7 +271,9 @@ int main(int argc, char *argv[]){
 			die("Invalid action: c=create, g=get, s=set, d=del, l=list");
 	}
 
+	//Closes the database
 	Database_close(conn);
 
+	//Returns no errors
 	return 0;
 }
