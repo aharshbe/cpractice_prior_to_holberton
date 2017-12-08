@@ -135,7 +135,7 @@ void Database_set(struct Connection *conn, int id, const char *name, const char 
 
 	struct Address *addr = &conn->db->rows[id];
 	if(addr->set)
-		die("Already setm delete it first");
+		die("Already set delete it first");
 
 	addr->set = 1;
 	//WARNING: bug, read the "How to break it" and fix this
