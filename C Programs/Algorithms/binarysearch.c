@@ -1,3 +1,4 @@
+
 /* This program implements binary search
    to search through a given array of
    int values
@@ -5,49 +6,47 @@
 
 #include<stdio.h>
 
-//This method is where binary search is created
+int bin_search(int target, int middle, int data[32]){
 
-int binary_search(int current, int middle, int looking_for){
+	//Printing out current location of search
+	printf("Middle is: %d, Target is: %d.\n", middle, target);
 
-	current = middle;
+	//Iterating through search data
+	for(int i = 0; i < sizeof(data) /  sizeof(int); i++){
 
-	if(current == looking_for){
+		if(middle > target){
 
-		printf("Found it.\n");
+			--middle;
+			printf("Middle > Target and is now: %d.\n", middle);
+			bin_search(target, middle, data);
 
-	}else if(looking_for > current){
+		}else if(middle < target){
 
-		current = current + 1;
-		binary_search(current, middle, looking_for);
+			++middle;
+			printf("Middle < Target and is now: %d.\n", middle);
+			bin_search(target, middle, data);
 
-	}else if(looking_for < current){
+		}else if(middle == target){
 
-		current = current - 1;
-		binary_search(current, middle, looking_for);
+			printf("Target found, it is: %d.\n", target);
 
-	}else{
+		}
 
-		printf("The value you're looking for does not exist.\n");
 	}
 }
 
 int main(int argc, char *argv[]){
 
-	//Defining variables
-	int numbers[] = {1, 2, 3, 4, 5, 6};
+	//Creating array of data to search through
+	int data[] = {1, 2, 3, 4, 5, 6, 45, 46, 56, 57, 58, 60, 72, 75, 86, 90};
 
-	int sizeofnumbers = sizeof(numbers) / sizeof(int);
+	//Creating variables
+	int target = 46;
+	int sizeofdata = sizeof(data) / sizeof(int);
+	int middle = data[sizeofdata / 2];
 
-	int middleindex = (sizeofnumbers / 2) - 1;
-
-	int middle = numbers[middleindex];
-
-	int looking_for = 2;
-
-	int current = numbers[0];
-
-	binary_search(current, middle, looking_for);
+	//Calling binary search method
+	bin_search(target, middle, data);
 
 	return 0;
-
 }
