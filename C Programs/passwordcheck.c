@@ -1,3 +1,13 @@
+/*
+    This program prompts the user to create
+    a username and password. The password must
+    contain a capital letter, lower case letter
+    a number and a symbol to be valid. If the
+    password is not valid, the user is prompted if
+    they would like to try again.
+*/
+
+
 #include<stdio.h>
 #include<ctype.h>
 #include<string.h>
