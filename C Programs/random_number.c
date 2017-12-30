@@ -40,7 +40,7 @@ while(yes_no == 0){
     }else{
 
         printf("-------------\n");
-        printf("!!!! Please ether enter (Y/N)\n");
+        printf("!!!! Please either enter (Y/N)\n");
         yes_no = 0;
         continue;
 
