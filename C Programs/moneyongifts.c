@@ -1,6 +1,6 @@
 /*
 This program calculates the total 
-amount of money one is progjected to spend
+amount of money one is projected to spend
 on Christmas gifts.
 */
 
