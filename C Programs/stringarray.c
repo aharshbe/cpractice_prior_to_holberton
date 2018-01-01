@@ -11,7 +11,7 @@
 
 int main(int argc, char **argv){
 
-//Creates a matrix that holds up to 80 names, each of 20 char or <.
+//Creates a matrix that holds up to 80 characters and up to 20 names
 char * name[80][20];
 int num;
 
