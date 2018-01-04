@@ -1,0 +1,1 @@
+This is the first line of text I've writted to a sequential file using C.
