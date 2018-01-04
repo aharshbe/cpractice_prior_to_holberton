@@ -1,11 +1,13 @@
 /*
     This program creates a sequential
     file, and asks if the user would
-    like to read, write or append text
-    it then gives the user the option
-    to repeate actions if they wish to
-    view what they wrote or add more
-    text
+    like to read, write or append text.
+
+    It then gives the user the option
+    to repeate actions if they wish.
+
+    They can also quit the program or
+    delete their text alltogether.
 */
 
 
@@ -34,6 +36,7 @@ int main(int argc, char **argv){
 
     char they_chose = 'y';
     char del;
+    char text_entry[1000];
 
     do{
 
@@ -92,7 +95,6 @@ int main(int argc, char **argv){
         case('w'):
             fptr = fopen("./second_file.txt", "w");
             func();
-            char text_entry[1000];
             puts("What would you like to write?\n");
             gets(text_entry);
             //Uses fprintf() to add text to the file using the file pointer, fptr
