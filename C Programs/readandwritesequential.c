@@ -19,7 +19,6 @@
 
 
 FILE *fptr; //Defines a file pointer
-char text_entry[1000];
 
 //function that verifies the pointer was created
 void func(){
