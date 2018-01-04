@@ -37,6 +37,8 @@ int main(int argc, char **argv){
     char they_chose = 'y';
     char del;
     char text_entry[1000];
+    char fileLine[100]; //Creates a file line variable
+
 
     do{
 
@@ -56,40 +58,36 @@ int main(int argc, char **argv){
             fptr = fopen("./second_file.txt", "r");
 
             func();
-             //Creates a file line variable
-        char fileLine[100];
 
-        //Make sure the file pointer is received, if so...
-        if(fptr != 0){
+            //Make sure the file pointer is received, if so...
+            if(fptr != 0){
 
-             puts("\n***Start of file*****\n");
+                 puts("\n***Start of file*****\n");
 
-            //While the end of the file (feof()) of the pointer isn't located...
-            while(!feof(fptr)){
+                //While the end of the file (feof()) of the pointer isn't located...
+                while(!feof(fptr)){
 
-                //Get the line up to 100 characters in each line of the file pointer location
-                fgets(fileLine, 100, fptr);
+                    //Get the line up to 100 characters in each line of the file pointer location
+                    fgets(fileLine, 100, fptr);
 
 
-                //If the end of the file hasn't been seen...
-                if(!feof(fptr)){
+                    //If the end of the file hasn't been seen...
+                    if(!feof(fptr)){
 
-                    //Print the line to stanard output (the screen)
-                    puts(fileLine);
+                        //Print the line to stanard output (the screen)
+                        puts(fileLine);
+                    }
 
                 }
 
+                puts("\n***End of file*****\n");
+
+            }else{
+
+                //Otherwise, print there was an error opening the file
+                printf("\Error opening file.\n");
 
             }
-
-            puts("\n***End of file*****\n");
-
-        }else{
-
-            //Otherwise, print there was an error opening the file
-            printf("\Error opening file.\n");
-
-        }
 
             break;
         case('w'):
