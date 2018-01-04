@@ -67,7 +67,7 @@ void Destroy_Car(struct Car *new_car){
 
 }
 
-
+//Creates a method that prints the car's values
 void Print_Car(struct Car *new_car){
 
     printf("The car costs $%.2f\n", new_car->price);
@@ -76,12 +76,16 @@ void Print_Car(struct Car *new_car){
 
 }
 
+//Main method
 int main(int argc, char **argv){
 
-
+    //Instantiates new car object
     struct Car *new_car = New_Car(234556.00, "Ford", "F34DCZ4");
+
+    //Calls previously defined methods
     Print_Car(new_car);
     Destroy_Car(new_car);
+    //Prints a space
     puts("");
 
 
