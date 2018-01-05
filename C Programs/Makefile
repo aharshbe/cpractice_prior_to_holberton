@@ -2,7 +2,8 @@ CFLAGS=-Wall -g
 
 all: ex1 ex2 ex7 variables_in_c ex8 ex9 ex10 ex10.1 ex10.3 ex11 
 	 bex12 ex13 ex14 ex15 testing_pointers p1 ex16 p2 p3 p4 p5 p6 ex17 p7 database password_database
-	 ex18 dbg c cstrcuturewpointers cstrcutures readandwritesequential resequential sequentialfiles
+	 ex18 dbg c cstrcuturewpointers cstrcutures readandwritesequential resequential sequentialfiles random_accessfile
+	 random_access_fseek
  
 clean:
 	rm -rf ex1
@@ -40,4 +41,6 @@ clean:
 	rm -rf sequentialfiles
 	rm -rf readandwritesequential
 	rm -rf readsequential
+	rm -rf random_accessfile
+	rm -rf random_access_fseek
 	rm -rf *.o
