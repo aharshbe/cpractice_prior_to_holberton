@@ -1,10 +1,12 @@
 /*
 	This program uses the header file
-	students.h to create a students type
-	it then asks the user 3 times to enter 
-	the students dorm, and name. It then
-	prents out the students details of 
-	those they entered.
+	students.h to create a new students type.
+	
+	It then asks the user a number of
+	times to enter the students dorm, 
+	and name based on the number of students the 
+	user selects. It then prints out the 
+	students details.
 */
 
 #include "students.h"
