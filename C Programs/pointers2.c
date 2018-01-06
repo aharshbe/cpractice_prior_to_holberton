@@ -16,7 +16,8 @@ int main(int argc, char **argv){
 		Allocating memory to string,
 		you can alternatively us malloc();
 		but calloc() initialized at 0
-		which is ideal while malloc() doesn't
+		which is ideal for security and to 
+		prevent overflows while malloc() doesn't
 	*/
 	string = calloc(80, sizeof(string));
 
