@@ -1,5 +1,10 @@
-#include<stdio.h>
+/*
+	This program attempts to implement
+	selection sort but doesn't currently
+	work.
+*/
 
+#include<stdio.h>
 
 void selection_sort(int arr[]);
 
