@@ -50,4 +50,5 @@ clean:
 	rm -rf pointers2
 	rm -rf students
 	rm -rf expontent
+	rm -rf order
 	rm -rf *.o
